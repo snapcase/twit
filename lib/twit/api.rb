@@ -8,7 +8,21 @@ module Twit
 
     module_function
 
-    # retrieve oauth2 bearer token
+    # Retrieve a single tweet by ID
+    # @param id [String, Integer] status id
+    def status(token, id)
+      response =
+        request(
+          :get,
+          "#{APIBASE}/1.1/statuses/show/#{id}.json",
+          Authorization: "Bearer #{token}",
+          params: { tweet_mode: 'extended' }
+        )
+      json = parse_json(response.body)
+    end
+
+    # Retrieve an OAuth2 bearer token used
+    #   for application-only endpoints
     # @param key [String] consumer key
     # @param secret [String] consumer secret
     # @return [String] OAuth2 bearer token
@@ -22,14 +36,21 @@ module Twit
           { grant_type: 'client_credentials' },
           { authorization: "Basic #{auth}" }
         )
-      json = JSON.parse(response.body, symbolize_names: true)
+      json = parse_json(response.body)
       json[:access_token]
     end
 
+    # Performs a RestClient request
+    # @param method [Symbol] HTTP request method
+    # @param attributes [Array] Attributes for the request
     def request(method, *attributes)
       RestClient.send(method, *attributes)
     rescue RestClient::Forbidden
       raise 'invalid consumer or secret'
+    end
+
+    def parse_json(data)
+      JSON.parse(data, symbolize_names: true)
     end
   end
 end
