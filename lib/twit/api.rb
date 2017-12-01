@@ -1,10 +1,13 @@
+# frozen_string_literal: true
+
 require 'rest-client'
 require 'base64'
 require 'json'
 
 module Twit
+  # API class methods
   module API
-    APIBASE = 'https://api.twitter.com'.freeze
+    APIBASE = 'https://api.twitter.com'
 
     module_function
 
@@ -18,7 +21,7 @@ module Twit
           Authorization: "Bearer #{token}",
           params: { tweet_mode: 'extended' }
         )
-      json = parse_json(response.body)
+      parse_json(response.body)
     end
 
     # Retrieve an OAuth2 bearer token used
@@ -34,7 +37,7 @@ module Twit
           :post,
           "#{APIBASE}/oauth2/token",
           { grant_type: 'client_credentials' },
-          { authorization: "Basic #{auth}" }
+          authorization: "Basic #{auth}"
         )
       json = parse_json(response.body)
       json[:access_token]

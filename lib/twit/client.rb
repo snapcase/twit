@@ -1,7 +1,10 @@
+# frozen_string_literal: true
+
 require 'twit/api'
 require 'twit/objects'
 
 module Twit
+  # Client
   class Client
     def initialize(key, secret)
       @token = API.access_token(key, secret)
@@ -15,6 +18,6 @@ module Twit
       Tweet.new(data)
     end
 
-    alias_method :tweet, :status
+    alias tweet status
   end
 end

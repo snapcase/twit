@@ -1,17 +1,19 @@
+# frozen_string_literal: true
+
 module Twit
   # @todo Add more attributes
   # @see https://developer.twitter.com/en/docs/tweets/post-and-engage/api-reference/get-statuses-show-id
   class Tweet
     # @return [Time] when the tweet was created
     attr_reader :created_at
-    alias_method :date, :created_at
+    alias date created_at
 
     # @return [Integer] Unique tweet ID
     attr_reader :id
 
     # @return [String] Tweet text content
     attr_reader :text
-    alias_method :content, :text
+    alias content text
 
     # @return [User] User that posted status
     attr_reader :user
@@ -31,15 +33,15 @@ module Twit
     # @return [Integer] The integer representation of the unique identifier for this User
     attr_reader :id
 
-    # @return [String] The name of the user, as they’ve defined it
+    # @return [String] The name of the user, as they've defined it
     attr_reader :name
 
     # @return [String] The screen name, handle, or alias that this user identifies themselves with
     attr_reader :screen_name
-    alias_method :alias, :screen_name
-    alias_method :handle, :screen_name
+    alias alias screen_name
+    alias handle screen_name
 
-    # @return [String] The user-defined location for this account’s profile
+    # @return [String] The user-defined location for this account's profile
     attr_reader :location
 
     # @return [String] The user-defined describing their account
