@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+require 'cgi'
 
 module Twit
   # @todo Add more attributes
@@ -22,7 +23,7 @@ module Twit
     def initialize(data)
       @created_at = Time.parse(data[:created_at])
       @id = data[:id]
-      @text = data[:full_text]
+      @text = CGI.unescapeHTML(data[:full_text])
       @user = User.new(data[:user])
     end
   end
